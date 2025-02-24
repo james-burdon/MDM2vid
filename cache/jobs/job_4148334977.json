@@ -1,0 +1,433 @@
+{
+  "dashEntityUrn": "urn:li:fsd_jobPosting:4148334977",
+  "companyDetails": {
+    "com.linkedin.voyager.deco.jobs.web.shared.WebCompactJobPostingCompany": {
+      "companyResolutionResult": {
+        "entityUrn": "urn:li:fs_normalized_company:104085107",
+        "name": "Jobs via Dice",
+        "logo": {
+          "image": {
+            "com.linkedin.common.VectorImage": {
+              "artifacts": [
+                {
+                  "width": 200,
+                  "fileIdentifyingUrlPathSegment": "200_200/company-logo_200_200/0/1724692422635/jobs_via_dice_logo?e=1747267200&v=beta&t=8SFTPR9PtJS_BpF43YHdTDVeG40RBlzYlGgcNb3A8VY",
+                  "expiresAt": 1747267200000,
+                  "height": 200
+                },
+                {
+                  "width": 100,
+                  "fileIdentifyingUrlPathSegment": "100_100/company-logo_100_100/0/1724692422635/jobs_via_dice_logo?e=1747267200&v=beta&t=LrV9xChtpTdk7IwlON4V3G2EpjlF55Dl06gbaEk62ZM",
+                  "expiresAt": 1747267200000,
+                  "height": 100
+                },
+                {
+                  "width": 400,
+                  "fileIdentifyingUrlPathSegment": "400_400/company-logo_400_400/0/1724692422635/jobs_via_dice_logo?e=1747267200&v=beta&t=FwC_o6gbOShckg9jVIXwv4ISCTncrEb_HkFImWmiWSg",
+                  "expiresAt": 1747267200000,
+                  "height": 400
+                }
+              ],
+              "rootUrl": "https://media.licdn.com/dms/image/v2/D560BAQFiy_7toPvozQ/company-logo_"
+            }
+          },
+          "type": "SQUARE_LOGO"
+        },
+        "$recipeType": "com.linkedin.voyager.deco.organization.shared.WebCompactCompany",
+        "universalName": "jobs-via-dice",
+        "url": "https://www.linkedin.com/company/jobs-via-dice"
+      },
+      "company": "urn:li:fs_normalized_company:104085107",
+      "$recipeType": "com.linkedin.voyager.deco.jobs.web.shared.WebCompactJobPostingCompany"
+    }
+  },
+  "jobState": "LISTED",
+  "description": {
+    "attributes": [
+      {
+        "start": 181,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 182,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 218,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 219,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 183,
+        "length": 37,
+        "type": {
+          "com.linkedin.pemberly.text.Bold": {}
+        },
+        "attributeKindUnion": {
+          "bold": {}
+        }
+      },
+      {
+        "start": 741,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 742,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 752,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 753,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 743,
+        "length": 11,
+        "type": {
+          "com.linkedin.pemberly.text.Bold": {}
+        },
+        "attributeKindUnion": {
+          "bold": {}
+        }
+      },
+      {
+        "start": 754,
+        "length": 29,
+        "type": {
+          "com.linkedin.pemberly.text.ListItem": {}
+        },
+        "attributeKindUnion": {
+          "listItem": {}
+        }
+      },
+      {
+        "start": 863,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 864,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 783,
+        "length": 82,
+        "type": {
+          "com.linkedin.pemberly.text.ListItem": {}
+        },
+        "attributeKindUnion": {
+          "listItem": {}
+        }
+      },
+      {
+        "start": 754,
+        "length": 111,
+        "type": {
+          "com.linkedin.pemberly.text.List": {
+            "ordered": false
+          }
+        },
+        "attributeKindUnion": {
+          "list": {
+            "ordered": false
+          }
+        }
+      },
+      {
+        "start": 873,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 874,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 865,
+        "length": 10,
+        "type": {
+          "com.linkedin.pemberly.text.Bold": {}
+        },
+        "attributeKindUnion": {
+          "bold": {}
+        }
+      },
+      {
+        "start": 875,
+        "length": 58,
+        "type": {
+          "com.linkedin.pemberly.text.ListItem": {}
+        },
+        "attributeKindUnion": {
+          "listItem": {}
+        }
+      },
+      {
+        "start": 937,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 938,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 933,
+        "length": 6,
+        "type": {
+          "com.linkedin.pemberly.text.ListItem": {}
+        },
+        "attributeKindUnion": {
+          "listItem": {}
+        }
+      },
+      {
+        "start": 875,
+        "length": 64,
+        "type": {
+          "com.linkedin.pemberly.text.List": {
+            "ordered": false
+          }
+        },
+        "attributeKindUnion": {
+          "list": {
+            "ordered": false
+          }
+        }
+      },
+      {
+        "start": 939,
+        "length": 18,
+        "type": {
+          "com.linkedin.pemberly.text.Bold": {}
+        },
+        "attributeKindUnion": {
+          "bold": {}
+        }
+      },
+      {
+        "start": 965,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 966,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 967,
+        "length": 18,
+        "type": {
+          "com.linkedin.pemberly.text.Bold": {}
+        },
+        "attributeKindUnion": {
+          "bold": {}
+        }
+      },
+      {
+        "start": 993,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 994,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1224,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1225,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1505,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1506,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1623,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      },
+      {
+        "start": 1624,
+        "length": 1,
+        "type": {
+          "com.linkedin.pemberly.text.LineBreak": {}
+        },
+        "attributeKindUnion": {
+          "lineBreak": {}
+        }
+      }
+    ],
+    "text": "Dice is the leading career destination for tech experts at every stage of their careers. Our client, Yoh - A Day & Zimmerman Company, is seeking the following. Apply via Dice today!\n\nPython Developer Data analysis tool\n\nMaintain and improve a Python based project that analyzes time series data ( in JSON ) from a custom tool that measures video and audio frames from a TV or Mobile device. This project leverages Matplotlib, SciKit, NumPy to perform data analysis on large data sets to determine the quality video playback performance. Analysis includes frame duration, audio/video synchronization, color gamut, and audio quality. Improvements in the object-oriented design are needed, as well as improving the performance of the reporting.\n\nRequired:\n\nStrong object-oriented PythonAt least some of the following; Numpy, SciPy, SciKit, reporting using Matplotlib\n\nDesired:\n\nAny experience with audio/video time series data is a plusJSON\n\nEstimated Min Rate: $75.00\n\nEstimated Max Rate: $85.00\n\nNote: Any pay ranges displayed are estimations. Actual pay is determined by an applicant's experience, technical expertise, and other qualifications as listed in the job description. All qualified applicants are welcome to apply.\n\nYoh, a Day & Zimmermann company, is an Equal Opportunity Employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or status as a protected veteran.\n\nVisit to contact us if you are an individual with a disability and require accommodation in the application process.\n\nFor California applicants, qualified applicants with arrest or conviction records will be considered for employment in accordance with the Los Angeles County Fair Chance Ordinance for Employers and the California Fair Chance Act. All of the material job duties described in this posting are job duties for which a criminal history may have a direct, adverse, and negative relationship potentially resulting in the withdrawal of a conditional offer of employment."
+  },
+  "title": "Python Developer - Data analysis tool",
+  "entityUrn": "urn:li:fs_normalized_jobPosting:4148334977",
+  "workRemoteAllowed": true,
+  "applyMethod": {
+    "com.linkedin.voyager.jobs.OffsiteApply": {
+      "applyStartersPreferenceVoid": true,
+      "companyApplyUrl": "https://click.appcast.io/track/lv34bnv?cs=ivj&sjg=8cgz",
+      "inPageOffsiteApply": false
+    }
+  },
+  "talentHubJob": false,
+  "formattedLocation": "San Bruno, CA",
+  "workplaceTypes": [
+    "urn:li:fs_workplaceType:2"
+  ],
+  "listedAt": 1739121893000,
+  "jobPostingId": 4148334977,
+  "$recipeType": "com.linkedin.voyager.deco.jobs.web.shared.WebLightJobPosting",
+  "workplaceTypesResolutionResults": {
+    "urn:li:fs_workplaceType:2": {
+      "localizedName": "Remote",
+      "$recipeType": "com.linkedin.voyager.deco.jobs.shared.WebJobDetailsWorkplaceType",
+      "entityUrn": "urn:li:fs_workplaceType:2"
+    }
+  }
+}
