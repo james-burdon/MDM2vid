@@ -12,18 +12,18 @@ from linkedin_api import Linkedin
 LINKEDIN_USERNAME = os.environ.get("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.environ.get("LINKEDIN_PASSWORD")
 
-OUTPUT_CSV = "linkedin_jobs_output.csv"
+OUTPUT_CSV = "linkedin_jobs_output1.csv"
 
 def extract_from_description(description, field):
     """Extract salary, experience, and job type from job descriptions using regex & keyword matching"""
     if not description:
         return "Unknown"
 
-    description = description.lower()[:500]  # Limit processing to 500 characters for speed
+    description = description.lower()[:500]  # Limit processing for speed
     
-    # Extract salary from text (match formats like "$70K", "$120,000", etc.)
+    # Extract salary from text (match formats like "$70K-$120K", "$80,000-$100,000", etc.)
     if field == "salary":
-        match = re.search(r"\$\d{2,3}[kK]|\$\d{1,3},\d{3}", description)
+        match = re.search(r"\$\d{2,3}[kK](-\$\d{2,3}[kK])?|\$\d{1,3},\d{3}(-\$\d{1,3},\d{3})?", description)
         return match.group(0) if match else "Not Provided"
 
     # Extract experience level from text
@@ -44,18 +44,20 @@ def extract_from_description(description, field):
 
     return "Unknown"
 
-def fetch_job_details(api, job, retries=1):  # Reduced retries to 1 for faster execution
-    """Fetch job details with optimized fallback extraction logic"""
+def fetch_job_details(api, job, retries=2):
+    """Fetch job details with optimized extraction logic."""
     job_id = job["entityUrn"].split(":")[-1]
     
     for attempt in range(retries):
         try:
             details = api.get_job(job_id)
 
-            # Extract company name
+            # Extract company name (checks multiple fields)
             company = (
                 details.get("companyResolutionResult", {}).get("name") or
                 details.get("companyDetails", {}).get("name") or
+                details.get("company", {}).get("name") or
+                extract_from_description(details.get("description", {}).get("text", ""), "company") or
                 "Unknown"
             )
 
@@ -64,14 +66,14 @@ def fetch_job_details(api, job, retries=1):  # Reduced retries to 1 for faster e
             description = description_data.get("text", "").strip()
             description = " ".join(description.split())[:500]  # Limit processing
 
-            # Extract salary more accurately, fallback to description scan
+            # Extract salary, fallback to description scan
             salary_data = details.get("salaryInsight", {})
             salary = (
                 salary_data.get("salary") or
                 salary_data.get("range", {}).get("min") or
                 salary_data.get("range", {}).get("max") or
                 salary_data.get("range", {}).get("median") or
-                extract_from_description(description, "salary")  # Fallback extraction from description
+                extract_from_description(description, "salary")  # Fallback extraction
             )
 
             # Extract job type, fallback to description scan
@@ -79,7 +81,7 @@ def fetch_job_details(api, job, retries=1):  # Reduced retries to 1 for faster e
                 details.get("employmentType") or
                 details.get("employmentStatus") or
                 details.get("jobPosting", {}).get("employmentType") or
-                extract_from_description(description, "job_type")  # Fallback extraction from description
+                extract_from_description(description, "job_type")  # Fallback extraction
             )
 
             # Extract experience level, fallback to description scan
@@ -87,7 +89,7 @@ def fetch_job_details(api, job, retries=1):  # Reduced retries to 1 for faster e
                 details.get("experienceLevel") or
                 details.get("jobPosting", {}).get("experienceLevel") or
                 details.get("jobPosting", {}).get("requiredExperienceLevel") or
-                extract_from_description(description, "experience")  # Fallback extraction from description
+                extract_from_description(description, "experience")  # Fallback extraction
             )
 
             return {
@@ -101,15 +103,23 @@ def fetch_job_details(api, job, retries=1):  # Reduced retries to 1 for faster e
             }
         except Exception as e:
             print(f"Error fetching job {job_id}, attempt {attempt+1}/{retries}: {e}")
-            time.sleep(random.uniform(0.5, 2))  # Reduce retry wait time to 0.5-2 seconds
+            time.sleep(random.uniform(1, 3))  # Reduce retry wait time to 1-3 seconds
 
     return None  # Return None if all attempts fail
 
-def scrape_linkedin_jobs(job_titles=["Data Scientist"], location="United States", limit=15):  # Lowered limit for speed
-    """Scrape LinkedIn jobs using faster multithreading"""
+def scrape_linkedin_jobs(job_titles=None, location="United States", limit=50):
+    """Scrape LinkedIn jobs using optimized multithreading."""
     if not (LINKEDIN_USERNAME and LINKEDIN_PASSWORD):
         print("LinkedIn credentials not found. Exiting...")
         sys.exit()
+
+    if job_titles is None:
+        job_titles = [
+            "Data Scientist", "Software Engineer", "Financial Analyst", 
+            "Product Manager", "Machine Learning Engineer", "AI Researcher",
+            "Cybersecurity Analyst", "Quantitative Analyst", "Investment Banker",
+            "Business Intelligence Analyst", "Marketing Analyst", "Cloud Engineer"
+        ]  # Expanded job searches
 
     api = Linkedin(LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
     job_list = []
@@ -122,7 +132,7 @@ def scrape_linkedin_jobs(job_titles=["Data Scientist"], location="United States"
             print(f"Failed to fetch job listings for {title}: {e}")
             continue
 
-        with ThreadPoolExecutor(max_workers=15) as executor:  # Increased workers to 15 for max speed
+        with ThreadPoolExecutor(max_workers=20) as executor:  # Increased workers to 20 for max speed
             results = list(executor.map(lambda job: fetch_job_details(api, job), jobs))
 
         job_list.extend(filter(None, results))  # Remove None values from failed jobs
@@ -133,5 +143,5 @@ def scrape_linkedin_jobs(job_titles=["Data Scientist"], location="United States"
     print(f"Job listings saved to {OUTPUT_CSV}")
 
 if __name__ == "__main__":
-    job_roles = ["Data Scientist", "Software Engineer", "Financial Analyst", "Product Manager"]
-    scrape_linkedin_jobs(job_titles=job_roles, location="United States", limit=15)  # Lower limit for speed
+    scrape_linkedin_jobs()
+
