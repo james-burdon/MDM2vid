@@ -39,14 +39,18 @@ df["Extracted_Skills"] = X.argmax(axis=1)  # Assign the most probable skill to e
 # Get the feature names (skills) from the TF-IDF vectorizer
 features = vectorizer.get_feature_names_out()
 
-# Map the indices to actual skill names
-df["Extracted_Skills"] = df["Extracted_Skills"].apply(lambda x: features[x])
+# Map the indices to actual skill names, ensuring we don't have 0 or invalid values
+df["Extracted_Skills"] = df["Extracted_Skills"].apply(
+    lambda x: features[x] if x != 0 else "No skill identified"
+)
 
 # Group by state and calculate the average salary for each state
 state_salary_avg = df.groupby("State")["Salary_Avg"].mean().reset_index()
 
-# Get the most common skills in each state
-state_skills = df.groupby("State")["Extracted_Skills"].apply(lambda x: ', '.join(x.value_counts().index[:5])).reset_index()
+# Get the most common skills in each state, adding a fallback for empty skills
+state_skills = df.groupby("State")["Extracted_Skills"].apply(
+    lambda x: ', '.join(x.value_counts().index[:5]) if not x.empty else "No skills available"
+).reset_index()
 
 # Merge the salary data with the skills data
 state_salary_avg = state_salary_avg.merge(state_skills, on="State")
@@ -112,18 +116,18 @@ state_salary_avg['Longitude'] = state_salary_avg['State'].map(lambda x: state_co
 # Create the map using Plotly's graph_objects
 fig = go.Figure()
 
-# Add the choropleth map for average salary
+# Add the choropleth map for average salary (no customdata)
 fig.add_trace(go.Choropleth(
     z=state_salary_avg['Salary_Avg'],
     locations=state_salary_avg['State'],
     locationmode="USA-states",
     colorscale="Viridis",
     colorbar_title="Average Salary",
-    hovertemplate='<b>%{location}</b><br>Salary: %{z}<br>Skills: %{customdata[0]}',
-    customdata=state_salary_avg[['Extracted_Skills']].values
+    hovertemplate='<b>%{location}</b><br>Salary: %{z}<br>Skills: %{text}',  # Using text for skills
+    text=state_salary_avg['Extracted_Skills']  # Add skills directly to the text field
 ))
 
-# Add text annotations for state names
+# Add text annotations for state names (to ensure they are visible)
 fig.add_trace(go.Scattergeo(
     locations=state_salary_avg['State'],
     locationmode="USA-states",
