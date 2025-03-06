@@ -1,0 +1,21 @@
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv("Cleaned_DS_Jobs.csv")
+
+# Remove spaces and split salary into min and max values
+df["Salary Estimate"] = df["Salary Estimate"].str.strip()  # Remove extra spaces
+df[["Min Salary", "Max Salary"]] = df["Salary Estimate"].str.split("-", expand=True)
+
+# Convert to numeric values
+df["Min Salary"] = pd.to_numeric(df["Min Salary"], errors="coerce")
+df["Max Salary"] = pd.to_numeric(df["Max Salary"], errors="coerce")
+
+# Compute the average salary
+df["Avg Salary"] = (df["Min Salary"] + df["Max Salary"]) / 2
+
+# Categorize into salary groups
+df["Salary Category"] = pd.cut(df["Avg Salary"], bins=[0, 100, 150, 300], labels=["Low", "Medium", "High"])
+
+# Display distribution of salary categories
+print(df["Salary Category"].value_counts())
