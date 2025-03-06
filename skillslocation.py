@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import re
 
 # Load the dataset (adjust the path accordingly)
-df = pd.read_csv("C:\\Users\\jburd\\Desktop\\MDM2vid\\combined_jobs_dataset.csv")
+df = pd.read_csv("C:\\Users\\jburd\\Desktop\\MDM2vid\\Refined_Glassdoor_Job_Listings_with_Job_State_from_Headquarters.csv")
 
 # Ensure 'Salary_Avg' is numeric and clean up any missing values
 df["Salary_Avg"] = pd.to_numeric(df["Salary_Avg"], errors="coerce")
