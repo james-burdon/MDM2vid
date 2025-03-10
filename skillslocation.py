@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import re
 
 # Load the dataset (adjust the path accordingly)
-df = pd.read_csv("C:\\Users\\jburd\\Desktop\\MDM2vid\\Refined_Glassdoor_Job_Listings_with_Job_State_from_Headquarters.csv")
+df = pd.read_csv("C:\\Users\\jburd\\Desktop\\MDM2vid\\combined_jobs_dataset.csv")
 
 # Ensure 'Salary_Avg' is numeric and clean up any missing values
 df["Salary_Avg"] = pd.to_numeric(df["Salary_Avg"], errors="coerce")
@@ -36,31 +36,55 @@ top_skills_mean = top_skills.mean(axis=0).sort_values(ascending=False).head(5)
 # Get the top skills
 top_5_skills = top_skills_mean.index.tolist()
 
-# Now, calculate the state-wise average salary for each of these top skills
-# Aggregate salary by skill and state
+# Region mapping for states (using initials)
+state_to_region = {
+    'NY': 'Northeast', 'VA': 'South', 'MA': 'Northeast', 'CA': 'West', 'IL': 'Midwest', 'MO': 'Midwest', 'WA': 'West', 
+    'DC': 'Northeast', 'TN': 'South', 'TX': 'South', 'PA': 'Northeast', 'AZ': 'West', 'WI': 'Midwest', 'GA': 'South', 
+    'FL': 'South', 'NE': 'Midwest', 'KS': 'Midwest', 'NH': 'Northeast', 'NJ': 'Northeast', 'LA': 'South', 'OH': 'Midwest', 
+    'IN': 'Midwest', 'MD': 'South', 'CO': 'West', 'UT': 'West', 'OR': 'West', 'MI': 'Midwest', 'SC': 'South', 'MS': 'South', 
+    'AL': 'South', 'RI': 'Northeast', 'IA': 'Midwest', 'MN': 'Midwest', 'OK': 'South', 'CT': 'Northeast', 'NC': 'South', 
+    'DE': 'Northeast', 'WV': 'South'
+}
+
+# Map states to regions (using state initials)
+df['Region'] = df['State'].map(state_to_region)
+
+# **Check for Missing Regions**
+missing_states = df[df['Region'].isna()]['State'].unique()
+if len(missing_states) > 0:
+    print("Warning: Missing regions for the following states:", missing_states)
+
+# Now, calculate the region-wise average salary for each of these top skills
+# Aggregate salary by skill and region
 df["Skills"] = df["Cleaned_Description"].apply(lambda x: [skill for skill in top_5_skills if skill in x])
 
-# We will consider states and calculate the average salary based on the top skills
-skills_by_state = []
+# We will consider regions and calculate the average salary based on the top skills
+skills_by_region = []
 
 for skill in top_5_skills:
-    state_salary = df[df["Skills"].apply(lambda x: skill in x)].groupby("State")["Salary_Avg"].mean().reset_index()
-    state_salary["Skill"] = skill
-    skills_by_state.append(state_salary)
+    region_salary = df[df["Skills"].apply(lambda x: skill in x)].groupby("Region")["Salary_Avg"].mean().reset_index()
+    region_salary["Skill"] = skill
+    skills_by_region.append(region_salary)
 
-# Combine all skill-based state salary data into a single DataFrame
-skills_state_salary_df = pd.concat(skills_by_state)
+# Combine all skill-based region salary data into a single DataFrame
+skills_region_salary_df = pd.concat(skills_by_region)
+
+# Check if the final DataFrame contains data
+if skills_region_salary_df.empty:
+    print("Warning: No data found for the top skills in regions.")
+else:
+    print("Data is ready for visualization.")
 
 # Now we will visualize this data using Plotly
 
 fig = go.Figure()
 
-# Add a scatter plot for each skill to visualize the best states for that skill
+# Add a bar plot for each skill to visualize the best regions for that skill
 for skill in top_5_skills:
-    skill_data = skills_state_salary_df[skills_state_salary_df["Skill"] == skill]
+    skill_data = skills_region_salary_df[skills_region_salary_df["Skill"] == skill]
     
     fig.add_trace(go.Bar(
-        x=skill_data["State"],
+        x=skill_data["Region"],
         y=skill_data["Salary_Avg"],
         name=skill,
         hovertemplate='<b>%{x}</b><br>Average Salary: %{y}<br>Skill: ' + skill,
@@ -69,11 +93,10 @@ for skill in top_5_skills:
 
 # Update layout and aesthetics
 fig.update_layout(
-    title="Best States for Top Skills Based on Average Salary",
-    xaxis_title="State",
+    title="Best Regions for Top Skills Based on Average Salary",
+    xaxis_title="Region",
     yaxis_title="Average Salary",
     barmode="group",  # Group bars by skill
-    xaxis=dict(tickangle=45),
     showlegend=True,
 )
 
