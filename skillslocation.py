@@ -2,9 +2,30 @@ import pandas as pd
 import plotly.graph_objects as go
 from sklearn.feature_extraction.text import TfidfVectorizer
 import re
+from nltk.corpus import stopwords
+
+# Define custom stopwords
+custom_stopwords = [
+    'data', 'analysis', 'analyst', 'analytic', 'analytics', 'science', 'scientist', 'role', 'skill',
+    'skills', 'tool', 'tools', 'model', 'models', 'algorithm', 'algorithms',
+    'process', 'project', 'task', 'knowledge', 'ability', 'team', 'work',
+    'experience', 'job', 'position', 'responsibilities', 'requirements',
+    'qualifications', 'including', 'develop', 'developing', 'implement',
+    'implementing', 'using', 'utilize', 'utilizing', 'support', 'collaborate',
+    'collaborating', 'perform', 'performing', 'strong', 'proficient',
+    'understanding', 'demonstrated', 'excellent', 'required', 'preferred',
+    'opportunity', 'environment', 'company', 'organization', 'business', 'statistics', 'statistical',
+    'client', 'report', 'reporting', 'management', 'information', 'employee', 'product', 'customer',
+    'service', 'spark', 'de', 'scientific', 'insight', 'andor', 'may', 'related', 'year', 'status',
+    'solution', 'database', 'quality', 'must', 'technology', 'etc', 'language', 'engineer', 'years','working','systems','solutions','technical', 'new',  'health', 'reports','provide','us','insights','analytical','software','degree'
+]
+
+# Combine custom stopwords with NLTK's English stopwords
+# Convert set to list since TfidfVectorizer expects a list
+stop_words = list(set(stopwords.words('english')).union(set(custom_stopwords)))
 
 # Load the dataset (adjust the path accordingly)
-df = pd.read_csv("C:\\Users\\jburd\\Desktop\\MDM2vid\\combined_jobs_dataset.csv")
+df = pd.read_csv("combined_jobs_dataset.csv")
 
 # Ensure 'Salary_Avg' is numeric and clean up any missing values
 df["Salary_Avg"] = pd.to_numeric(df["Salary_Avg"], errors="coerce")
@@ -23,7 +44,8 @@ def clean_text(text):
 df["Cleaned_Description"] = df["Job Description"].fillna("").apply(clean_text)
 
 # **TF-IDF Vectorization to Extract Top 5 Skills**
-vectorizer = TfidfVectorizer(stop_words="english", max_features=3000, min_df=5, ngram_range=(1, 2))
+# Use our combined stop_words, ensuring it's a list
+vectorizer = TfidfVectorizer(stop_words=stop_words, max_features=3000, min_df=5, ngram_range=(1, 2))
 X = vectorizer.fit_transform(df["Cleaned_Description"])
 
 # Get the feature names (skills) from the TF-IDF vectorizer
@@ -76,7 +98,6 @@ else:
     print("Data is ready for visualization.")
 
 # Now we will visualize this data using Plotly
-
 fig = go.Figure()
 
 # Add a bar plot for each skill to visualize the best regions for that skill
