@@ -14,7 +14,26 @@ df["Salary_Avg"] = pd.to_numeric(df["Salary_Avg"], errors="coerce")
 df = df.dropna(subset=["Salary_Avg", "State", "Job Description"])
 
 # Text Preprocessing
-stop_words = set(stopwords.words("english"))
+from nltk.corpus import stopwords
+
+# Define custom stopwords
+custom_stopwords = [
+    'data', 'analysis', 'analyst', 'analytic', 'analytics', 'science', 'scientist', 'role', 'skill',
+    'skills', 'tool', 'tools', 'model', 'models', 'algorithm', 'algorithms',
+    'process', 'project', 'task', 'knowledge', 'ability', 'team', 'work',
+    'experience', 'job', 'position', 'responsibilities', 'requirements',
+    'qualifications', 'including', 'develop', 'developing', 'implement',
+    'implementing', 'using', 'utilize', 'utilizing', 'support', 'collaborate',
+    'collaborating', 'perform', 'performing', 'strong', 'proficient',
+    'understanding', 'demonstrated', 'excellent', 'required', 'preferred',
+    'opportunity', 'environment', 'company', 'organization', 'business', 'statistics', 'statistical',
+    'client', 'report', 'reporting', 'management', 'information', 'employee', 'product', 'customer',
+    'service', 'spark', 'de', 'scientific', 'insight', 'andor', 'may', 'related', 'year', 'status',
+    'solution', 'database', 'quality', 'must', 'technology', 'etc', 'language', 'engineer', 'years','working','systems','solutions','technical', 'new',  'health', 'reports','provide','us','insights','analytical','software','degree'
+]
+# Combine custom stopwords with NLTK's English stopwords
+# Convert set to list since TfidfVectorizer expects a list
+stop_words = list(set(stopwords.words('english')).union(set(custom_stopwords)))
 lemmatizer = WordNetLemmatizer()
 
 def clean_text(text):
